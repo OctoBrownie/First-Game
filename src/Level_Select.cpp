@@ -14,24 +14,28 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 	// add "Back" to the end of the menu options
 	this->menu_options.push_back("Back");
 
-	// TODO: define levels_per_row
+	// TODO: define rows and columns 
 	{
 		SDL_Color color = {0, 0, 0, 255};
 		SDL_Texture* tex;
-		int w;
+		int w, h;
 		try {
 			tex = font_to_tex(ren, menu_font, menu_options[0], color);
-			SDL_QueryTexture(tex, NULL, NULL, &w, NULL);
+			SDL_QueryTexture(tex, NULL, NULL, &w, &h);
 			cleanup(tex);
 		}
 		catch (...) {
 			cleanup(tex);
 			throw "Level_Select::Level_Select() ERROR: Constructor could not be executed.\n";
 		}
+		// TODO: restrict poss_per_row further so it doesn't overlap with title or back buttons
 		int poss_per_row = (screen_width - pad_x) / (pad_x + w);
-		if (poss_per_row <= 0) {
-			throw "Level_Select::Level_Select() ERROR: Window is too small to ";
+		int poss_per_column = (screen_height - pad_y) / (pad_y + h);
+		if (poss_per_row*poss_per_column < menu_options.size()) {
+			throw "Level_Select::Level_Select() ERROR: Window is too small to display any levels.\n";
 		}
+		
+		// TODO: somehow come up with the optimal number of rows and columns
 	}
 }
 
