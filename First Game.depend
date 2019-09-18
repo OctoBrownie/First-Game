@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1567456428 source:c:\users\crystal\everything\my_programs\first game\src\general_sdl_funcs.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	"general_SDL_funcs.h"
+
+1567456317 c:\users\crystal\everything\my_programs\first game\include\general_sdl_funcs.h
+	<string>
+	<iostream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+
+1567395361 source:c:\users\crystal\everything\my_programs\first game\src\puzzle.cpp
+	<SDL2/SDL.h>
+	"Puzzle.h"
+
+1568492244 source:c:\users\crystal\everything\my_programs\first game\src\menu.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<vector>
+	"general_SDL_funcs.h"
+	"Menu.h"
+	"cleanup.h"
+
+1568489402 source:c:\users\crystal\everything\my_programs\first game\src\game_state.cpp
+	<SDL2/SDL.h>
+	<iostream>
+	<string>
+	<vector>
+	"Game_State.h"
+	"Menu.h"
+	"Puzzle.h"
+	"Level_Select.h"
+
+1568492990 c:\users\crystal\everything\my_programs\first game\include\game_state.h
+	<SDL2/SDL.h>
+	<string>
+	"Puzzle.h"
+	"Menu.h"
+
+1567395413 c:\users\crystal\everything\my_programs\first game\include\puzzle.h
+
+1568350552 c:\users\crystal\everything\my_programs\first game\include\menu.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<string>
+	<vector>
+
+1567472657 source:c:\users\crystal\everything\my_programs\first game\src\main.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<string>
+	"cleanup.h"
+	"general_SDL_funcs.h"
+	"Game_State.h"
+
+1567470845 c:\users\crystal\everything\my_programs\first game\include\cleanup.h
+	<utility>
+	<SDL2/SDL.h>
+
+1567372310 source:c:\users\crystal\everything\my_programs\first game\src\main_menu.cpp
+	"Main_Menu.h"
+
+1567373108 c:\users\crystal\everything\my_programs\first game\include\main_menu.h
+	"Menu.h"
+
+1567991914 source:c:\users\crystal\everything\my_programs\first game\src\level_select.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<string>
+	<vector>
+	"general_SDL_funcs.h"
+	"Level_Select.h"
+
+1567991843 c:\users\crystal\everything\my_programs\first game\include\level_select.h
+	"Menu.h"
+

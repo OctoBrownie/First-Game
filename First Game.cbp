@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="First Game" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="[DEBUG] First Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="[RELEASE] First Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="include" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32" />
+			<Add option="-lSDL2main -lSDL2 -lSDL2_ttf" />
+			<Add option="-lopengl32" />
+		</Linker>
+		<Unit filename="include/Game_State.h" />
+		<Unit filename="include/Level_Select.h" />
+		<Unit filename="include/Menu.h" />
+		<Unit filename="include/Puzzle.h" />
+		<Unit filename="include/cleanup.h" />
+		<Unit filename="include/general_SDL_funcs.h" />
+		<Unit filename="src/Game_State.cpp" />
+		<Unit filename="src/Level_Select.cpp" />
+		<Unit filename="src/Menu.cpp" />
+		<Unit filename="src/Puzzle.cpp" />
+		<Unit filename="src/general_SDL_funcs.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<editor_config active="1" use_tabs="1" tab_indents="1" tab_width="4" indent="4" eol_mode="0" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
