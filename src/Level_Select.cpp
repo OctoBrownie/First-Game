@@ -2,6 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <vector>
+#include <cmath> 
 
 #include "general_SDL_funcs.h"
 #include "Level_Select.h"
@@ -9,17 +10,27 @@
 // TODO: define Level_Select funcs
 
 Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_options, int screen_height,
-			int screen_width) : Menu(ren, "Level Select", menu_options, 10, 40, "res\\Courier font.ttf",
+			int screen_width) : Menu(ren, "Level Select", menu_options, 20, 20, "res\\Courier font.ttf",
 			true, screen_height, screen_width) {
 	// add "Back" to the end of the menu options
 	this->menu_options.push_back("Back");
-
-	// TODO: define rows and columns 
+	
+	// had to reinit the option font and menu_font
+	option_font_size = 30;
+	menu_font = load_TTF_font(renderer, font_file, option_font_size);
+	
+	// init level array rectangle
+	level_array_rect.x = 2*pad_x;
+	level_array_rect.y = 3*pad_y + title_font_size;
+	level_array_rect.w = screen_width - 4*pad_x;
+	level_array_rect.h = screen_height - 6*pad_y - 2*title_font_size;
+	
+	// TODO: define number of rows and columns 
 	{
-		SDL_Color color = {0, 0, 0, 255};
 		SDL_Texture* tex;
 		int w, h;
 		try {
+			SDL_Color color = {0, 0, 0, 255};
 			tex = font_to_tex(ren, menu_font, menu_options[0], color);
 			SDL_QueryTexture(tex, NULL, NULL, &w, &h);
 			cleanup(tex);
@@ -28,14 +39,22 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 			cleanup(tex);
 			throw "Level_Select::Level_Select() ERROR: Constructor could not be executed.\n";
 		}
-		// TODO: restrict poss_per_row further so it doesn't overlap with title or back buttons
-		int poss_per_row = (screen_width - pad_x) / (pad_x + w);
-		int poss_per_column = (screen_height - pad_y) / (pad_y + h);
-		if (poss_per_row*poss_per_column < menu_options.size()) {
-			throw "Level_Select::Level_Select() ERROR: Window is too small to display any levels.\n";
-		}
 		
-		// TODO: somehow come up with the optimal number of rows and columns
+		// come up with the optimal number of rows and columns
+		int curr_rows = level_array_rect.w / (pad_x + w); 
+		int curr_cols = ceil(menu_options.size() - 1 / curr_rows);
+		int max_cols = level_array_rect.h / (pad_y + h);
+		
+		if (max_cols < curr_cols) {
+			throw "Level_Select::Level_Select() ERROR: Window is too small to display all levels.\n";
+		}
+		int best_rows = curr_rows;
+		int best_cols = curr_cols;
+		while (max_cols >= curr_cols) {		// everything still fits
+			// TODO: what makes this row-col pair the "best"?
+			curr_rows--;
+			curr_cols = ceil(menu_options.size() - 1 / curr_rows);
+		}
 	}
 }
 
