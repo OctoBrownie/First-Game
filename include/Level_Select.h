@@ -5,7 +5,7 @@
 
 class Level_Select : public Menu {
 protected:
-	int rows, columns;
+	int rows, cols;
 	SDL_Rect level_array_rect;
 
 	void keyboard_input_down(const SDL_Event* event);
