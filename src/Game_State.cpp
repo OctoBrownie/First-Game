@@ -151,8 +151,9 @@ int Game_State::make_main_context() {
 		Menu* temp_menu = new Menu(ren, title, main_menu_options, 20, 10,
 								   "res\\Courier font.ttf", true, screen_h, screen_w);
     }
-    catch (...) {
+    catch (const char* msg) {
         cout << "Menu creation error: Menu constructor couldn't be called.\n";
+		cout << msg;
         quit_now = true;
         return 1;
     }
