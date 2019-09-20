@@ -41,19 +41,26 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 		}
 		
 		// come up with the optimal number of rows and columns
+		int array_size = menu_options.size() - 1;
 		int curr_rows = level_array_rect.w / (pad_x + w); 
-		int curr_cols = ceil(menu_options.size() - 1 / curr_rows);
+		int curr_cols = ceil(array_size / curr_rows);
 		int max_cols = level_array_rect.h / (pad_y + h);
 		
 		if (max_cols < curr_cols) {
 			throw "Level_Select::Level_Select() ERROR: Window is too small to display all levels.\n";
 		}
+		
 		int best_rows = curr_rows;
 		int best_cols = curr_cols;
-		while (max_cols >= curr_cols) {		// everything still fits
-			// TODO: what makes this row-col pair the "best"?
+		while (max_cols >= curr_cols && curr_rows*curr_cols >= array_size) {	// everything fits
+			// fits the array size better, rows/cols are more equal, and array is horizontal
+			if (curr_rows*curr_cols - array_size < best_rows*best_cols - array_size 
+				&& curr_rows - curr_cols < best_rows - best_cols && curr_rows > curr_cols) {
+				best_rows = curr_rows;
+				best_cols = curr_cols;
+			}
 			curr_rows--;
-			curr_cols = ceil(menu_options.size() - 1 / curr_rows);
+			curr_cols = ceil(array_size / curr_rows);
 		}
 	}
 }
