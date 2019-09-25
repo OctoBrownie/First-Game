@@ -154,8 +154,13 @@ int Game_State::make_main_context() {
     catch (const char* msg) {
         cout << "Menu creation error: Menu constructor couldn't be called.\n";
 		cout << msg;
-        quit_now = true;
-        return 1;
+        
+		cleanup(ren);
+		delete curr_puzzle;
+		delete curr_menu;
+        
+		quit_now = true;
+		return 1;
     }
 
 	delete curr_puzzle;
