@@ -90,14 +90,16 @@ int Level_Select::render_menu() {
 
     // grid of levels, not including the "Back" option
     for (unsigned int i = 0; i < menu_options.size() - 1; i++) {
-        // TODO: define the current row and column
-        int curr_row =
+        int curr_row = i % rows;
+		int curr_col = i / rows;
 
         SDL_Color option_color = title_color;
 
         // TODO: Define text_box
-        SDL_Rect text_box;
-        // text_box.x = pad_x + curr_row
+        SDL_Rect option_box;
+        // option_box.x = level_array_rect.x + pad_x + curr_row*(option_width + padding between options + padding within option box);
+		// option_box.y = level_array_rect.y + pad_y + curr_col*(option_font_size + padding between options + padding within option box);
+		// option_box.w = padding within option box + option_width
 
 		Uint8 r, g, b, a;
 		SDL_GetRenderDrawColor(ren, &r, &g, &b, &a);
@@ -113,20 +115,20 @@ int Level_Select::render_menu() {
 			// level with normal background
 			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
         }
-		SDL_RenderFillRect(ren, &text_box);
+		SDL_RenderFillRect(ren, &option_box);
 		SDL_SetRenderDrawColor(ren, r, g, b, a);
 
-		// the outline of the box
-		SDL_RenderDrawRect(ren, &text_box);
+		// box outline
+		SDL_RenderDrawRect(ren, &option_box);
 
 		// actual text
 		SDL_Texture* option_tex = font_to_tex(ren, menu_font, menu_options[i], option_color);
 
-        // TODO: Change option_dest_rect
-        SDL_Rect option_dest_rect;
-        SDL_QueryTexture(option_tex, NULL, NULL, &option_dest_rect.w, &option_dest_rect.h);
-        option_dest_rect.x = menu_rect.x + pad_x;
-        option_dest_rect.y = menu_rect.y + title_font_size + 3*pad_y + (option_font_size + pad_y)*i;
+        // TODO: Change text_box (use option_box values)
+        SDL_Rect text_box;
+        SDL_QueryTexture(option_tex, NULL, NULL, &text_box.w, &text_box.h);
+		text_box.x = level_array_rect.x + pad_x;
+        text_box.y = level_array_rect.y + title_font_size + 3*pad_y + (option_font_size + pad_y)*curr_col;
 
         SDL_RenderCopy(ren, option_tex, NULL, &option_dest_rect);
     }
