@@ -10,61 +10,61 @@
 Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_options, int screen_height,
 			int screen_width) : Menu(ren, "Level Select", menu_options, 20, 20, "res\\Courier font.ttf",
 			true, screen_height, screen_width) {
-	// add the "Back" button to the end of the menu options
-	if (menu_options[menu_options.size()-1] != "Back")
-		this->menu_options.push_back("Back");
-	
 	// reinit the option font and menu_font
 	option_font_size = 30;
 	menu_font = load_TTF_font(renderer, font_file, option_font_size);
 	
-	// init level array rectangle
-	level_array_rect.x = 2*pad_x;
-	level_array_rect.y = 3*pad_y + title_font_size;
-	level_array_rect.w = screen_width - 4*pad_x;
-	level_array_rect.h = screen_height - 6*pad_y - 2*title_font_size;
-	
-	// TODO: define number of rows and columns 
+	int option_w, option_h;
+	// getting the width of the options (assumed of the same character length)
 	{
 		SDL_Texture* tex;
-		int w, h;
 		try {
 			SDL_Color color = {0, 0, 0, 255};
 			tex = font_to_tex(ren, menu_font, menu_options[0], color);
-			SDL_QueryTexture(tex, NULL, NULL, &w, &h);
+			SDL_QueryTexture(tex, NULL, NULL, &option_w, &option_h);
 			cleanup(tex);
 		}
 		catch (...) {
 			cleanup(tex);
 			throw "Level_Select::Level_Select() ERROR: Constructor could not be executed.\n";
 		}
-		
-		// come up with the optimal number of rows and columns
-		int array_size = menu_options.size() - 1;
-		if (array_size <= 0) {
-			throw "Level_Select::Level_Select() ERROR: No levels in menu array.\n";
-		}
-		int curr_rows = level_array_rect.w / (pad_x + w); 
-		int curr_cols = ceil(array_size*1.0 / curr_rows);
-		int max_cols = level_array_rect.h / (pad_y + h);
-		
-		if (max_cols < curr_cols) {
-			throw "Level_Select::Level_Select() ERROR: Window is too small to display all levels.\n";
-		}
-		
-		rows = curr_rows;
-		cols = curr_cols;
-		while (max_cols >= curr_cols && curr_rows*curr_cols >= array_size) {	// everything fits
-			// fits the array size better, rows/cols are more equal, and array is horizontal
-			if (curr_rows*curr_cols - array_size <= rows*cols - array_size 
-				&& curr_rows - curr_cols <= rows - cols && curr_rows >= curr_cols) {
-				rows = curr_rows;
-				cols = curr_cols;
-			}
-			curr_rows--;
-			curr_cols = ceil(array_size*1.0 / curr_rows);
-		}
 	}
+	
+	int max_width = screen_width - 4*pad_x;
+	int max_height = screen_height - 6*pad_y - 2*title_font_size;
+	
+	// come up with the optimal number of rows and columns
+	if (menu_options.size() <= 0) {
+		throw "Level_Select::Level_Select() ERROR: No levels in menu array.\n";
+	}
+	int curr_rows = max_width / (2*pad_x + option_w); 
+	int curr_cols = ceil(array_size*1.0 / curr_rows);
+	int max_cols = max_height / (pad_y + option_h);
+
+	if (max_cols < curr_cols) {
+		throw "Level_Select::Level_Select() ERROR: Window is too small to display all levels.\n";
+	}
+
+	rows = curr_rows;
+	cols = curr_cols;
+	while (max_cols >= curr_cols && curr_rows*curr_cols >= menu_options.size()) {	// everything fits
+		// fits the array size better, rows/cols are more equal, and array is horizontal
+		if (curr_rows*curr_cols - menu_options.size() <= rows*cols - menu_options.size() 
+			&& curr_rows - curr_cols <= rows - cols && curr_rows >= curr_cols) {
+			rows = curr_rows;
+			cols = curr_cols;
+		}
+		curr_rows--;
+		curr_cols = ceil(menu_options.size()*1.0 / curr_rows);
+	}
+	
+	// init level array rectangle
+	level_array_rect.x = 2*pad_x;
+	level_array_rect.y = 3*pad_y + title_font_size;
+	
+	// the # of elements per row = the # of columns, conversely, the # of elements per column = the # of rows
+	level_array_rect.w = cols*(2*pad_x + option_w);		// TODO: check that the padding totals to 2*pad_x
+	level_array_rect.h = rows*(2*pad_y + option_h);		// TODO: check that the padding totals to 2*pad_y
 }
 
 int Level_Select::render_menu() {
@@ -132,6 +132,7 @@ int Level_Select::render_menu() {
         SDL_RenderCopy(ren, option_tex, NULL, &option_dest_rect);
     }
     // TODO: render the "Back" option
+	// anchored to the bottom of the level_array_rect
     // use title_color
 
     SDL_SetRenderDrawColor(ren, r, g, b, a);
