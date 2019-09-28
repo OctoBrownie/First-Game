@@ -7,15 +7,14 @@
 #include "general_SDL_funcs.h"
 #include "Level_Select.h"
 
-// TODO: define Level_Select funcs
-
 Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_options, int screen_height,
 			int screen_width) : Menu(ren, "Level Select", menu_options, 20, 20, "res\\Courier font.ttf",
 			true, screen_height, screen_width) {
-	// add "Back" to the end of the menu options
-	this->menu_options.push_back("Back");
+	// add the "Back" button to the end of the menu options
+	if (menu_options[menu_options.size()-1] != "Back")
+		this->menu_options.push_back("Back");
 	
-	// had to reinit the option font and menu_font
+	// reinit the option font and menu_font
 	option_font_size = 30;
 	menu_font = load_TTF_font(renderer, font_file, option_font_size);
 	
@@ -139,6 +138,8 @@ int Level_Select::render_menu() {
     return 0;
 }
 
+// TODO: Level_Select::keyboard_input_down
 void keyboard_input_down(const SDL_Event* event) {}
 
+// TODO: Level_Select::get_option_at_x_y
 int get_option_at_x_y(const int x, const int y) {}
