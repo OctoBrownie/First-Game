@@ -32,6 +32,7 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 	
 	int max_width = screen_width - 4*pad_x;
 	int max_height = screen_height - 6*pad_y - 2*title_font_size;
+	int array_size = menu_options.size() - 1;
 	
 	// come up with the optimal number of rows and columns
 	if (menu_options.size() <= 0) {
@@ -47,15 +48,15 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 
 	rows = curr_rows;
 	cols = curr_cols;
-	while (max_cols >= curr_cols && curr_rows*curr_cols >= menu_options.size()) {	// everything fits
+	while (max_cols >= curr_cols && curr_rows*curr_cols >= array_size) {	// everything fits
 		// fits the array size better, rows/cols are more equal, and array is horizontal
-		if (curr_rows*curr_cols - menu_options.size() <= rows*cols - menu_options.size() 
+		if (curr_rows*curr_cols - menu_options.size() <= rows*cols - array_size 
 			&& curr_rows - curr_cols <= rows - cols && curr_rows >= curr_cols) {
 			rows = curr_rows;
 			cols = curr_cols;
 		}
 		curr_rows--;
-		curr_cols = ceil(menu_options.size()*1.0 / curr_rows);
+		curr_cols = ceil(array_size*1.0 / curr_rows);
 	}
 	
 	// init level array rectangle
@@ -140,7 +141,7 @@ int Level_Select::render_menu() {
 		// render text
         SDL_RenderCopy(ren, option_tex, NULL, &option_dest_rect);
     }
-    // TODO: render the "Back" option
+    // TODO: render the last option, like a "Back" button
 	// anchored to the bottom of the level_array_rect
     // use title_color
 
