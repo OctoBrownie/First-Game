@@ -63,8 +63,8 @@ Level_Select::Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_opti
 	level_array_rect.y = 3*pad_y + title_font_size;
 	
 	// the # of elements per row = the # of columns, conversely, the # of elements per column = the # of rows
-	level_array_rect.w = cols*(2*pad_x + option_w);		// TODO: check that the padding totals to 2*pad_x
-	level_array_rect.h = rows*(2*pad_y + option_h);		// TODO: check that the padding totals to 2*pad_y
+	level_array_rect.w = cols*(2*pad_x + option_w) - pad_x;
+	level_array_rect.h = rows*(2*pad_y + option_h) - pad_y;
 }
 
 int Level_Select::render_menu() {
