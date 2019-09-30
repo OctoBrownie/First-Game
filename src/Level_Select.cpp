@@ -91,17 +91,34 @@ int Level_Select::render_menu() {
     for (unsigned int i = 0; i < menu_options.size() - 1; i++) {
         int curr_row = i % rows;
 		int curr_col = i / rows;
-
-        SDL_Color option_color = title_color;
-
-        // TODO: Define text_box
-        SDL_Rect option_box;
-        // option_box.x = level_array_rect.x + pad_x + curr_row*(option_width + padding between options + padding within option box);
-		// option_box.y = level_array_rect.y + pad_y + curr_col*(option_font_size + padding between options + padding within option box);
-		// option_box.w = padding within option box + option_width
-
+		int option_width;
+		
 		Uint8 r, g, b, a;
 		SDL_GetRenderDrawColor(ren, &r, &g, &b, &a);
+		
+        SDL_Color option_color = title_color;
+
+        // actual text
+		SDL_Texture* option_tex = font_to_tex(ren, menu_font, menu_options[i], option_color);
+
+		// text_box represents the bounding box for the actual text, option_box surrounds text_box (+ padding) 
+        SDL_Rect text_box, option_box;
+        
+		// option_box coordinates
+		option_box.x = level_array_rect.x + pad_x + curr_row*(option_width + 2*pad_x);
+		option_box.y = level_array_rect.y + pad_y + curr_col*(option_font_size + 2*pad_x);
+		
+		// text_box coordinates
+		text_box.x = option_box.x + (pad_x / 2);
+		text_box.y = option_box.y + (pad_y / 2);
+		
+		// text_box width/height
+		SDL_QueryTexture(option_tex, NULL, NULL, &option_width, &text_box.h);
+		text_box.w = option_width;
+		
+		// option_box width/height
+		option_box.w = pad_x + text_box.w;
+		option_box.h = pad_y + text_box.h;
 
         if (i == active_menu_option) {
             // level with highlighted background (b/c is active)
@@ -119,16 +136,8 @@ int Level_Select::render_menu() {
 
 		// box outline
 		SDL_RenderDrawRect(ren, &option_box);
-
-		// actual text
-		SDL_Texture* option_tex = font_to_tex(ren, menu_font, menu_options[i], option_color);
-
-        // TODO: Change text_box (use option_box values)
-        SDL_Rect text_box;
-        SDL_QueryTexture(option_tex, NULL, NULL, &text_box.w, &text_box.h);
-		text_box.x = level_array_rect.x + pad_x;
-        text_box.y = level_array_rect.y + title_font_size + 3*pad_y + (option_font_size + pad_y)*curr_col;
-
+		
+		// render text
         SDL_RenderCopy(ren, option_tex, NULL, &option_dest_rect);
     }
     // TODO: render the "Back" option
