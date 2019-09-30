@@ -147,8 +147,9 @@ int Game_State::puzzle_menu_context_input(const SDL_Event* event) {
 
 int Game_State::make_main_context() {
 	vector<string> main_menu_options = {"Play", "Level Select", "Quit"};
-    try {
-		Menu* temp_menu = new Menu(ren, title, main_menu_options, 20, 10,
+    Menu* temp_menu;
+	try {
+		temp_menu = new Menu(ren, title, main_menu_options, 20, 10,
 								   "res\\Courier font.ttf", true, screen_h, screen_w);
     }
     catch (const char* msg) {
@@ -180,7 +181,28 @@ int Game_State::make_puzzle_context() {
 }
 
 int Game_State::make_level_select_context() {
-	// TODO: Game_State::make_level_select_context
+	vector<string> level_select_options = {"1", "2", "3", "4", "5", "6", "Back"};
+	Menu* temp_menu;
+	try {
+		temp_menu = new Level_Select(ren, level_select_options, screen_h, screen_w);
+	}
+	catch(const char* msg) {
+		cout << "Level Select creation error: Level Select constructor could not be called.\n";
+		cout << msg;
+		
+		cleanup(ren);
+		delete curr_puzzle;
+		delete curr_menu;
+		quit_now = true;
+		return 1;
+	}
+	
+	delete curr_puzzle;
+	curr_puzzle = nullptr;
+	
+	delete curr_menu;
+	curr_menu = temp_menu;
+	
 	curr_context = in_level_select;
 	return 0;
 }
