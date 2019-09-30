@@ -98,20 +98,34 @@ int Level_Select::render_menu() {
 		SDL_GetRenderDrawColor(ren, &r, &g, &b, &a);
 		
         SDL_Color option_color = title_color;
+		SDL_Color border_color, background_color;
+		border_color.r = 0;
+		border_color.g = 0;
+		border_color.b = 0;
 
-        // actual text
+        if (i == active_menu_option) {
+            // level with highlighted background (b/c is active)
+            background_color.r = 0;
+			background_color.g = 0;
+			background_color.b = 0;
+			SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+			// invert option_color
+			option_color.r = 255 - option_color.r;
+			option_color.g = 255 - option_color.g;
+			option_color.b = 255 - option_color.b;
+        }
+        else {
+			// level with normal background
+			background_color.r = 255;
+			background_color.g = 255;
+			background_color.b = 255;
+        }
+		
+		// actual text
 		SDL_Texture* option_tex = font_to_tex(ren, menu_font, menu_options[i], option_color);
 
 		// text_box represents the bounding box for the actual text, option_box surrounds text_box (+ padding) 
         SDL_Rect text_box, option_box;
-        
-		// option_box coordinates
-		option_box.x = level_array_rect.x + pad_x + curr_row*(option_width + 2*pad_x);
-		option_box.y = level_array_rect.y + pad_y + curr_col*(option_font_size + 2*pad_x);
-		
-		// text_box coordinates
-		text_box.x = option_box.x + (pad_x / 2);
-		text_box.y = option_box.y + (pad_y / 2);
 		
 		// text_box width/height
 		SDL_QueryTexture(option_tex, NULL, NULL, &option_width, &text_box.h);
@@ -120,26 +134,26 @@ int Level_Select::render_menu() {
 		// option_box width/height
 		option_box.w = pad_x + text_box.w;
 		option_box.h = pad_y + text_box.h;
+		
+		// option_box coordinates
+		option_box.x = level_array_rect.x + pad_x + curr_row*(option_width + 2*pad_x);
+		option_box.y = level_array_rect.y + pad_y + curr_col*(option_font_size + 2*pad_x);
+		
+		// text_box coordinates
+		text_box.x = option_box.x + (pad_x / 2);
+		text_box.y = option_box.y + (pad_y / 2);
 
-        if (i == active_menu_option) {
-            // level with highlighted background (b/c is active)
-            SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
-			option_color.r = 255;
-			option_color.g = 255;
-			option_color.b = 255;
-        }
-        else {
-			// level with normal background
-			SDL_SetRenderDrawColor(ren, 200, 200, 200, 255);
-        }
+		// render box with outline
+		SDL_SetRenderDrawColor(ren, background_color.r, background_color.g, background_color,b, 255);
 		SDL_RenderFillRect(ren, &option_box);
-		SDL_SetRenderDrawColor(ren, r, g, b, a);
-
-		// box outline
+		SDL_SetRenderDrawColor(ren, border_color.r, border_color.g, border_color.b, 255);
 		SDL_RenderDrawRect(ren, &option_box);
 		
 		// render text
         SDL_RenderCopy(ren, option_tex, NULL, &option_dest_rect);
+		
+		// cleanup
+		SDL_SetRenderDrawColor(ren, r, g, b, a);
     }
     // TODO: render the last option, like a "Back" button
 	// anchored to the bottom of the level_array_rect
