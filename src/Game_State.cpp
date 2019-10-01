@@ -7,6 +7,7 @@
 #include "Menu.h"
 #include "Puzzle.h"
 #include "Level_Select.h"
+#include "cleanup.h"
 
 using namespace std;
 
@@ -92,7 +93,7 @@ int Game_State::puzzle_context_input(const SDL_Event* event) {
 	case SDL_MOUSEBUTTONDOWN:
 	case SDL_MOUSEMOTION:
 		{
-			string result = curr_puzzle->interpret_input(event);
+			// string result = curr_puzzle->interpret_input(event);
 			// based on returns, MAYBE do something since mouse button could potentially get to puzzle end
 		}
 		break;
@@ -100,7 +101,7 @@ int Game_State::puzzle_context_input(const SDL_Event* event) {
 	case SDL_KEYUP:
 	case SDL_MOUSEBUTTONUP:
 		{
-			string result = curr_puzzle->interpret_input(event);
+			// string result = curr_puzzle->interpret_input(event);
 			// change puzzle or go to puzzle menu
 		}
 		break;
@@ -155,11 +156,11 @@ int Game_State::make_main_context() {
     catch (const char* msg) {
         cout << "Menu creation error: Menu constructor couldn't be called.\n";
 		cout << msg;
-        
+
 		cleanup(ren);
 		delete curr_puzzle;
 		delete curr_menu;
-        
+
 		quit_now = true;
 		return 1;
     }
@@ -189,20 +190,20 @@ int Game_State::make_level_select_context() {
 	catch(const char* msg) {
 		cout << "Level Select creation error: Level Select constructor could not be called.\n";
 		cout << msg;
-		
+
 		cleanup(ren);
 		delete curr_puzzle;
 		delete curr_menu;
 		quit_now = true;
 		return 1;
 	}
-	
+
 	delete curr_puzzle;
 	curr_puzzle = nullptr;
-	
+
 	delete curr_menu;
 	curr_menu = temp_menu;
-	
+
 	curr_context = in_level_select;
 	return 0;
 }

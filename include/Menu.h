@@ -7,7 +7,7 @@
 #include <vector>
 
 class Menu {
-private:
+protected:
     std::vector<std::string> menu_options;
     int active_menu_option;					// set to -1 if nothing is active
     std::string title;

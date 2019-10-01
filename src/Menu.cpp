@@ -39,14 +39,16 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
     {
     	// find the longest string
 		int longest_str_i = 0;
+
 		for (unsigned int i = 0; i < menu_options.size(); i++) {
 			if (menu_options[i].size() > menu_options[longest_str_i].size())
 				longest_str_i = i;
 		}
 
+		SDL_Texture* longest_str_tex;
 		try {
 			SDL_Color white = {255, 255, 255, 255};
-			SDL_Texture* longest_str_tex = font_to_tex(renderer, menu_font, menu_options[longest_str_i], white);
+			longest_str_tex = font_to_tex(renderer, menu_font, menu_options[longest_str_i], white);
 			SDL_QueryTexture(longest_str_tex, NULL, NULL, &longest_option_in_px, NULL);
 			cleanup(longest_str_tex);
 		}
