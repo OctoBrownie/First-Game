@@ -163,7 +163,7 @@ int Level_Select::render_menu() {
     // render the last option (like a "Back" button)
 	// anchored to the bottom of the level_array_rect
 	SDL_Rect back_text_box;
-	SDL_Texture* back_option_tex = font_to_tex(ren, menu_font, menu_options[menu_options.size() - 1], title_color);
+	SDL_Texture* back_option_tex = font_to_tex(ren, title_font, menu_options[menu_options.size() - 1], title_color);
 	if (back_option_tex == nullptr) {
 		cout << "Level_Select::render_menu ERROR: font_to_tex returned nullptr.\n";
 		return 1;
