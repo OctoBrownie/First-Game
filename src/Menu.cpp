@@ -45,6 +45,7 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
 				longest_str_i = i;
 		}
 
+<<<<<<< HEAD
 		SDL_Texture* longest_str_tex;
 		try {
 			SDL_Color white = {255, 255, 255, 255};
@@ -55,7 +56,15 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
 		catch (...) {
 			cleanup(longest_str_tex);
 			throw "Menu::Menu() ERROR: Constructor could not be executed.\n";
+=======
+		SDL_Color white = {255, 255, 255, 255};
+		SDL_Texture* longest_str_tex = font_to_tex(renderer, menu_font, menu_options[longest_str_i], white);
+		if (longest_str_tex == nullptr) {
+			throw "Menu::Menu() ERROR: font_to_tex returned nullptr.\n";
+>>>>>>> 750b80ce48c5821315537aeffb99e208250cfd3d
 		}
+		SDL_QueryTexture(longest_str_tex, NULL, NULL, &longest_option_in_px, NULL);
+		cleanup(longest_str_tex);
     }
 
     // fill in menu SDL_Rect
@@ -78,6 +87,9 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
 				int title_width;
 				SDL_Color white = {255, 255, 255, 255};
 				title_texture = font_to_tex(renderer, title_font, title, white);
+				if (title_texture == nullptr) {
+					throw "Menu::Menu() ERROR: font_to_tex returned nullptr.\n";
+				}
 				SDL_QueryTexture(title_texture, NULL, NULL, &title_width, NULL);
 
 				// so we know how wide to make the menu
@@ -114,6 +126,9 @@ int Menu::render_menu() {
     SDL_Color menu_color = {0, 0, 0, 255};
 
     SDL_Texture* title_tex = font_to_tex(ren, title_font, title, menu_color);
+	if (title_tex == nullptr) {
+		return 1;
+	}
     SDL_Rect title_dest_rect;
     SDL_QueryTexture(title_tex, NULL, NULL, &title_dest_rect.w, &title_dest_rect.h);
     title_dest_rect.y = menu_rect.y + pad_y;
@@ -132,6 +147,9 @@ int Menu::render_menu() {
     // left aligned options
     for (unsigned int i = 0; i < menu_options.size(); i++) {
         SDL_Texture* option_tex = font_to_tex(ren, menu_font, menu_options[i], menu_color);
+		if (option_tex == nullptr) {
+			return 1;
+		}
 
         SDL_Rect option_dest_rect;
         SDL_QueryTexture(option_tex, NULL, NULL, &option_dest_rect.w, &option_dest_rect.h);
