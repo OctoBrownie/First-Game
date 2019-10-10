@@ -180,7 +180,7 @@ int Level_Select::render_menu() {
 }
 
 // TODO: Level_Select::keyboard_input_down
-void keyboard_input_down(const SDL_Event* event) {}
+void Level_Select::keyboard_input_down(const SDL_Event* event) {}
 
 // TODO: Level_Select::get_option_at_x_y
-int get_option_at_x_y(const int x, const int y) {}
+int Level_Select::get_option_at_x_y(const int x, const int y) {}
