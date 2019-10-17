@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "cleanup.h"
+
 class Menu {
 protected:
     std::vector<std::string> menu_options;
@@ -34,11 +36,11 @@ public:
         int screen_width);
 
     // declare virtual if the derived classes' destructors need calling too
-    ~Menu();
+    virtual ~Menu() { cleanup(menu_font, title_font); }
     virtual int render_menu();
     std::string interpret_input(const SDL_Event* event);      // returns menu item clicked/keyed, else empty
 
-    bool get_fullscreen() {return fullscreen;}
+    bool get_fullscreen() { return fullscreen; }
 };
 
 #endif // __Menu__

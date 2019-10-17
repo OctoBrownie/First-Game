@@ -8,7 +8,6 @@
 
 using namespace std;
 
-// TODO: define Menu funcs
 Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, int x_pad,
     int y_pad, string font_file, bool is_full_screen, int screen_height,
     int screen_width) : menu_options(menu_options), active_menu_option(-1), title(title),
@@ -45,7 +44,6 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
 				longest_str_i = i;
 		}
 
-<<<<<<< HEAD
 		SDL_Texture* longest_str_tex;
 		try {
 			SDL_Color white = {255, 255, 255, 255};
@@ -56,12 +54,11 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
 		catch (...) {
 			cleanup(longest_str_tex);
 			throw "Menu::Menu() ERROR: Constructor could not be executed.\n";
-=======
+		}
 		SDL_Color white = {255, 255, 255, 255};
-		SDL_Texture* longest_str_tex = font_to_tex(renderer, menu_font, menu_options[longest_str_i], white);
+		longest_str_tex = font_to_tex(renderer, menu_font, menu_options[longest_str_i], white);
 		if (longest_str_tex == nullptr) {
 			throw "Menu::Menu() ERROR: font_to_tex returned nullptr.\n";
->>>>>>> 750b80ce48c5821315537aeffb99e208250cfd3d
 		}
 		SDL_QueryTexture(longest_str_tex, NULL, NULL, &longest_option_in_px, NULL);
 		cleanup(longest_str_tex);
@@ -107,10 +104,6 @@ Menu::Menu(SDL_Renderer* renderer, string title, vector<string> menu_options, in
         menu_rect.x = screen_width / 2 - menu_rect.w / 2;
         menu_rect.y = screen_height / 2 - menu_rect.h / 2;
     }
-}
-
-Menu::~Menu() {
-    cleanup(menu_font, title_font);
 }
 
 int Menu::render_menu() {

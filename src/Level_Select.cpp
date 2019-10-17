@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <cmath>
@@ -8,7 +9,9 @@
 #include "Level_Select.h"
 #include "cleanup.h"
 
-Level_Select::Level_Select(SDL_Renderer* renderer, std::vector<std::string> menu_options, int screen_height,
+using namespace std;
+
+Level_Select::Level_Select(SDL_Renderer* renderer, vector<string> menu_options, int screen_height,
 			int screen_width) : Menu(ren, "Level Select", menu_options, 20, 20, "res\\Courier font.ttf",
 			true, screen_height, screen_width) {
 	// reinit the option font and menu_font
@@ -68,6 +71,8 @@ Level_Select::Level_Select(SDL_Renderer* renderer, std::vector<std::string> menu
 	level_array_rect.w = cols*(2*pad_x + option_w) - pad_x;
 	level_array_rect.h = rows*(2*pad_y + option_h) - pad_y;
 }
+
+Level_Select::~Level_Select() {}
 
 int Level_Select::render_menu() {
 	Uint8 r, g, b, a;       // original draw color
@@ -160,7 +165,7 @@ int Level_Select::render_menu() {
 		// cleanup
 		SDL_SetRenderDrawColor(ren, r, g, b, a);
     }
-	
+
     // render the last option (like a "Back" button)
 	// anchored to the bottom of the level_array_rect
 	SDL_Rect back_text_box;
@@ -172,7 +177,7 @@ int Level_Select::render_menu() {
 	back_text_box.x = pad_x;
 	back_text_box.y = level_array_rect.y + level_array_rect.h;
 	SDL_QueryTexture(back_option_tex, NULL, NULL, &back_text_box.w, &back_text_box.h);
-	
+
 	SDL_RenderCopy(ren, back_option_tex, NULL, &back_text_box);
 	cleanup(back_option_tex);
 
@@ -184,4 +189,6 @@ int Level_Select::render_menu() {
 void keyboard_input_down(const SDL_Event* event) {}
 
 // TODO: Level_Select::get_option_at_x_y
-int get_option_at_x_y(const int x, const int y) {}
+int get_option_at_x_y(const int x, const int y) {
+	return 0;
+}

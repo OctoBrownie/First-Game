@@ -56,7 +56,6 @@ int Game_State::check_input() {
     return 0;
 }
 
-
 int Game_State::main_context_input(const SDL_Event* event) {
 	switch(event->type) {
 	case SDL_KEYDOWN:
@@ -226,3 +225,8 @@ int Game_State::render_game() {
     }
     return 0;
 }
+
+int Game_State::pause() {
+	// TODO: Game_State::pause
+}
+
