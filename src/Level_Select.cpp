@@ -182,7 +182,6 @@ int Level_Select::render_menu() {
     return 0;
 }
 
-// TODO: Level_Select::keyboard_input_down
 void Level_Select::keyboard_input_down(const SDL_Event* event) {
 	// to check for repeats
 	static int repeats = 0;
