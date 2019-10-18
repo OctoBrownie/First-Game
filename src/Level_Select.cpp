@@ -223,15 +223,23 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 						// go up one row (row--)
 						// if on the top row, go to the first element
 						// if on the last element (Back button) go to the first element in the last row
+						if (active_menu_option < rows) {
+							active_menu_option = 0;
+						}
+						else if (active_menu_option == menu_options.length - 1) {
+							active_menu_option -= rows + 1;
+						}
+						else {
+							active_menu_option -= rows;
+						}
 					}
 					break;
 				case SDL_SCANCODE_A:
 					{
-						// go left one column (col--)
-						// if at the first element, go nowhere
-						// if at the first element in a row (but NOT the first element), go to the last
-						// element in the previous row
-						// if at the last element (Back button), go to the last element in the last row
+						// go left one column (col--) unless at the first element
+						if (active_menu_option != 0) {
+							active_menu_option--;
+						}
 					}
 					break;
 				case SDL_SCANCODE_S:
@@ -239,13 +247,20 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 						// go down one row (row++)
 						// if at the last element of a column, go to the "Back" button
 						// it at the last element (Back button), do nothing
+						if (active_menu_option / cols == rows - 1) {
+							active_menu_option = menu_options.length - 1;
+						}
+						else if (active_menu_option != menu_options.length - 1) {
+							active_menu_option += rows;
+						}
 					}
 					break;
 				case SDL_SCANCODE_D:
 					{
-						// go right one column (col++)
-						// if at the last element of a row, go to the first element of the next row
-						// if at the next to last element, go to the last element
+						// go right one column (col++) unless at the last element
+						if (active_menu_option != menu_options.length - 1) {
+							active_menu_option++;
+						}
 					}
 					break;
 				}
