@@ -10,7 +10,7 @@
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
 
-1567395361 source:c:\users\crystal\everything\my_programs\first game\src\puzzle.cpp
+1571376142 source:c:\users\crystal\everything\my_programs\first game\src\puzzle.cpp
 	<SDL2/SDL.h>
 	"Puzzle.h"
 
@@ -22,7 +22,7 @@
 	"Menu.h"
 	"cleanup.h"
 
-1570407655 source:c:\users\crystal\everything\my_programs\first game\src\game_state.cpp
+1571376086 source:c:\users\crystal\everything\my_programs\first game\src\game_state.cpp
 	<SDL2/SDL.h>
 	<iostream>
 	<string>
@@ -39,7 +39,7 @@
 	"Puzzle.h"
 	"Menu.h"
 
-1569909952 c:\users\crystal\everything\my_programs\first game\include\puzzle.h
+1571375974 c:\users\crystal\everything\my_programs\first game\include\puzzle.h
 	<string>
 
 1570406658 c:\users\crystal\everything\my_programs\first game\include\menu.h
@@ -69,17 +69,16 @@
 1567373108 c:\users\crystal\everything\my_programs\first game\include\main_menu.h
 	"Menu.h"
 
-1570403176 source:c:\users\crystal\everything\my_programs\first game\src\level_select.cpp
+1571375619 source:c:\users\crystal\everything\my_programs\first game\src\level_select.cpp
 	<SDL2/SDL.h>
 	<SDL2/SDL_ttf.h>
-	<iostream>
 	<string>
 	<vector>
 	<cmath>
+	<iostream>
 	"general_SDL_funcs.h"
 	"Level_Select.h"
-	"cleanup.h"
 
-1570403653 c:\users\crystal\everything\my_programs\first game\include\level_select.h
+1571375288 c:\users\crystal\everything\my_programs\first game\include\level_select.h
 	"Menu.h"
 

@@ -13,7 +13,7 @@ protected:
 public:
 	Level_Select(SDL_Renderer* ren, std::vector<std::string> menu_options, int screen_height,
 				int screen_width);
-	~Level_Select();
+	// ~Level_Select();
 	int render_menu();          // override to render formatted level array
 };
 

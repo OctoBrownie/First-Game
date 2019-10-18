@@ -9,6 +9,7 @@ private:
 public:
     // asdf
     std::string interpret_input(const SDL_Event* event);
+    int render_menu();
 };
 
 #endif // __Puzzle__

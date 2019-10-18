@@ -31,7 +31,7 @@ Game_State::~Game_State() {
 int Game_State::check_input() {
     SDL_Event curr_event;
 
-    while (SDL_PollEvent(&curr_event)) {
+    while (SDL_PollEvent(&curr_event) && !quit_now) {
         if (curr_event.type == SDL_QUIT) {
             // no need to handle other events once quit is called
             quit_now = true;
@@ -219,9 +219,21 @@ int Game_State::next_puzzle() {
 }
 
 int Game_State::render_game() {
-    // TODO: Game_State::render_game()
-    if (curr_context == in_main) {
-		curr_menu->render_menu();
+    switch(curr_context) {
+		case in_main:
+		case in_level_select:
+		case in_puzzle_menu:
+			if (curr_menu->render_menu()) {
+				quit_now = true;
+				return 1;
+			}
+			break;
+		case in_puzzle:
+			if (curr_puzzle->render_menu()) {
+				quit_now = true;
+				return 1;
+			}
+			break;
     }
     return 0;
 }
