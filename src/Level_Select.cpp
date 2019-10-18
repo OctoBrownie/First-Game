@@ -183,7 +183,76 @@ int Level_Select::render_menu() {
 }
 
 // TODO: Level_Select::keyboard_input_down
-void Level_Select::keyboard_input_down(const SDL_Event* event) {}
+void Level_Select::keyboard_input_down(const SDL_Event* event) {
+	// to check for repeats
+	static int repeats = 0;
+
+	if (event->key.keysym.scancode == SDL_SCANCODE_W || event->key.keysym.scancode == SDL_SCANCODE_A
+	   || event->key.keysym.scancode == SDL_SCANCODE_S || event->key.keysym.scancode == SDL_SCANCODE_D) {
+		if (event->key.repeat == 0) {
+			repeats = 0;
+		}
+		else {
+			float secs = 0.5;
+			// TODO: Possibly change the "5" to an average fps (probably divided by something)
+			int frames = secs*5;
+			repeats = (repeats + 1) % frames;
+		}
+
+		// cycles through the menu options
+		if (repeats == 0) {
+			/*
+			if (active_menu_option == -1)
+				active_menu_option = 0;
+			else if (event->key.keysym.scancode == SDL_SCANCODE_W) {
+				if (active_menu_option == 0)
+					active_menu_option = menu_options.size() - 1;
+				else
+					active_menu_option = (active_menu_option - 1) % menu_options.size();
+			}
+			else if (event->key.keysym.scancode == SDL_SCANCODE_S)
+				active_menu_option = (active_menu_option + 1) % menu_options.size();
+			*/
+			if (active_menu_option == -1) {
+				active_menu_option = 0;
+			}
+			else {
+				switch(event->key.keysym.scancode) {
+				case SDL_SCANCODE_W:
+					{
+						// go up one row (row--)
+						// if on the top row, go to the first element
+						// if on the last element (Back button) go to the first element in the last row
+					}
+					break;
+				case SDL_SCANCODE_A:
+					{
+						// go left one column (col--)
+						// if at the first element, go nowhere
+						// if at the first element in a row (but NOT the first element), go to the last
+						// element in the previous row
+						// if at the last element (Back button), go to the last element in the last row
+					}
+					break;
+				case SDL_SCANCODE_S:
+					{
+						// go down one row (row++)
+						// if at the last element of a column, go to the "Back" button
+						// it at the last element (Back button), do nothing
+					}
+					break;
+				case SDL_SCANCODE_D:
+					{
+						// go right one column (col++)
+						// if at the last element of a row, go to the first element of the next row
+						// if at the next to last element, go to the last element
+					}
+					break;
+				}
+			}
+		}
+	}
+}
 
 // TODO: Level_Select::get_option_at_x_y
 int Level_Select::get_option_at_x_y(const int x, const int y) {}
