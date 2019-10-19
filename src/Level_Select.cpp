@@ -165,7 +165,7 @@ int Level_Select::render_menu() {
 
     // render the last option (like a "Back" button)
 	// anchored to the bottom of the level_array_rect
-	SDL_Rect back_text_box, back_highlight_box;
+	SDL_Rect back_text_box;
 	SDL_Texture* back_option_tex = font_to_tex(ren, title_font, menu_options[menu_options.size() - 1], title_color);
 	if (back_option_tex == nullptr) {
 		cout << "Level_Select::render_menu ERROR: font_to_tex returned nullptr.\n";
@@ -175,13 +175,23 @@ int Level_Select::render_menu() {
 	back_text_box.y = level_array_rect.y + level_array_rect.h;
 	SDL_QueryTexture(back_option_tex, NULL, NULL, &back_text_box.w, &back_text_box.h);
 
-	back_highlight_box = back_text_box;
+	if (active_menu_option == menu_options.size() - 1) {
+		// highlight Back button
+		SDL_Rect back_highlight_box;
+		back_highlight_box = back_text_box;
+		back_highlight_box.y -= pad_y / 2;
+		back_highlight_box.h += pad_y;
+		back_highlight_box.w += 2*pad_x;
 
-	SDL_RenderFillRect(ren, &back_highlight_box);
+		SDL_SetRenderDrawColor(ren, 100, 100, 100, 255);
+
+		SDL_RenderFillRect(ren, &back_highlight_box);
+		SDL_SetRenderDrawColor(ren, r, g, b, a);
+	}
 	SDL_RenderCopy(ren, back_option_tex, NULL, &back_text_box);
 	cleanup(back_option_tex);
 
-    SDL_SetRenderDrawColor(ren, r, g, b, a);
+    SDL_SetRenderDrawColor(ren, r, g, b, a);		// reset original render color
     return 0;
 }
 
