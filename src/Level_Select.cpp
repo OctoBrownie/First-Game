@@ -165,7 +165,7 @@ int Level_Select::render_menu() {
 
     // render the last option (like a "Back" button)
 	// anchored to the bottom of the level_array_rect
-	SDL_Rect back_text_box;
+	SDL_Rect back_text_box, back_highlight_box;
 	SDL_Texture* back_option_tex = font_to_tex(ren, title_font, menu_options[menu_options.size() - 1], title_color);
 	if (back_option_tex == nullptr) {
 		cout << "Level_Select::render_menu ERROR: font_to_tex returned nullptr.\n";
@@ -175,6 +175,9 @@ int Level_Select::render_menu() {
 	back_text_box.y = level_array_rect.y + level_array_rect.h;
 	SDL_QueryTexture(back_option_tex, NULL, NULL, &back_text_box.w, &back_text_box.h);
 
+	back_highlight_box = back_text_box;
+
+	SDL_RenderFillRect(ren, &back_highlight_box);
 	SDL_RenderCopy(ren, back_option_tex, NULL, &back_text_box);
 	cleanup(back_option_tex);
 
@@ -200,18 +203,6 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 
 		// cycles through the menu options
 		if (repeats == 0) {
-			/*
-			if (active_menu_option == -1)
-				active_menu_option = 0;
-			else if (event->key.keysym.scancode == SDL_SCANCODE_W) {
-				if (active_menu_option == 0)
-					active_menu_option = menu_options.size() - 1;
-				else
-					active_menu_option = (active_menu_option - 1) % menu_options.size();
-			}
-			else if (event->key.keysym.scancode == SDL_SCANCODE_S)
-				active_menu_option = (active_menu_option + 1) % menu_options.size();
-			*/
 			if (active_menu_option == -1) {
 				active_menu_option = 0;
 			}
@@ -225,7 +216,7 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 						if (active_menu_option < rows) {
 							active_menu_option = 0;
 						}
-						else if (active_menu_option == menu_options.length - 1) {
+						else if (active_menu_option == menu_options.size() - 1) {
 							active_menu_option -= rows + 1;
 						}
 						else {
@@ -247,9 +238,9 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 						// if at the last element of a column, go to the "Back" button
 						// it at the last element (Back button), do nothing
 						if (active_menu_option / cols == rows - 1) {
-							active_menu_option = menu_options.length - 1;
+							active_menu_option = menu_options.size() - 1;
 						}
-						else if (active_menu_option != menu_options.length - 1) {
+						else if (active_menu_option != menu_options.size() - 1) {
 							active_menu_option += rows;
 						}
 					}
@@ -257,10 +248,12 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 				case SDL_SCANCODE_D:
 					{
 						// go right one column (col++) unless at the last element
-						if (active_menu_option != menu_options.length - 1) {
+						if (active_menu_option != menu_options.size() - 1) {
 							active_menu_option++;
 						}
 					}
+					break;
+				default:
 					break;
 				}
 			}
