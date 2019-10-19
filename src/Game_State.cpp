@@ -86,6 +86,7 @@ int Game_State::main_context_input(const SDL_Event* event) {
 }
 
 int Game_State::puzzle_context_input(const SDL_Event* event) {
+	// TODO: Game_State::puzzle_context_input
 	// TODO: possible optimization
 	switch(event->type) {
 	case SDL_KEYDOWN:
@@ -121,12 +122,21 @@ int Game_State::level_select_context_input(const SDL_Event* event) {
 			string result = curr_menu->interpret_input(event);
 
 			// send to a puzzle or back to main
+			if (result == "Back") {
+				// context becomes main menu
+				make_main_context();
+			}
+			else {
+				// context becomes a puzzle
+				make_puzzle_context();
+			}
 		}
 		break;
 	}
 }
 
 int Game_State::puzzle_menu_context_input(const SDL_Event* event) {
+	// TODO: Game_State::puzzle_menu_context_input
 	switch(event->type) {
 	case SDL_KEYDOWN:
 	case SDL_MOUSEBUTTONDOWN:
@@ -236,9 +246,5 @@ int Game_State::render_game() {
 			break;
     }
     return 0;
-}
-
-int Game_State::pause() {
-	// TODO: Game_State::pause
 }
 

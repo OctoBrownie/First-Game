@@ -36,7 +36,6 @@ public:
 
     Game_State(SDL_Renderer* renderer, const std::string& game_title, int screen_width, int screen_height);
     ~Game_State();
-    int pause();
     int render_game();
     int check_input();
 
