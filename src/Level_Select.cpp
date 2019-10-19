@@ -227,7 +227,7 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 							active_menu_option = 0;
 						}
 						else if (active_menu_option == menu_options.size() - 1) {
-							active_menu_option -= rows + 1;
+							active_menu_option -= cols + 1;
 						}
 						else {
 							active_menu_option -= rows;
