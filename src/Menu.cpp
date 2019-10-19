@@ -206,13 +206,15 @@ string Menu::interpret_input(const SDL_Event* event) {
 			return menu_options[res];
         }
     case SDL_KEYUP:
-    	// will return -1 if nothing selected, otherwise returns index
-        int res = keyboard_input_up(event);
-        if (res == -1)
-			return "";
+    	{
+			// will return -1 if nothing selected, otherwise returns index
+			int res = keyboard_input_up(event);
+			if (res == -1)
+				return "";
 
-		active_menu_option = -1;
-        return menu_options[res];
+			active_menu_option = -1;
+			return menu_options[res];
+    	}
     }
 }
 
@@ -234,7 +236,6 @@ void Menu::mouse_input_down_or_motion(const SDL_Event* event) {
 	// decide which item is active
 
 	// have to check for if left button is clicked
-	// use get_option_at_x_y()
 	int x, y;
 
 	if (event->type == SDL_MOUSEBUTTONDOWN) {
