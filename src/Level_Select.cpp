@@ -272,4 +272,12 @@ void Level_Select::keyboard_input_down(const SDL_Event* event) {
 }
 
 // TODO: Level_Select::get_option_at_x_y
-int Level_Select::get_option_at_x_y(const int x, const int y) {}
+int Level_Select::get_option_at_x_y(const int x, const int y) {
+	if (x >= level_array_rect.x && x <= level_array_rect.x + level_array_rect.w && 
+		y >= level_array_rect.y && y <= level_array_rect.y + level_array_rect.h) {
+		// is within the bounds for a level button
+	}
+	else if (x >= level_array_rect.x + level_array_rect.w) {
+		// possibly on the back button
+	}
+}
