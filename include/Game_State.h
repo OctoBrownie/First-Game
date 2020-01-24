@@ -24,7 +24,6 @@ private:
 
     int next_puzzle();
 
-    // TODO: Declare and implement functions for switching between different contexts
     int make_main_context();
     int make_puzzle_context();
     int make_level_select_context();

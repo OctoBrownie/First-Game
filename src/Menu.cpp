@@ -192,16 +192,16 @@ string Menu::interpret_input(const SDL_Event* event) {
     // handle keys/mouse UP (when the selection has been made)
     case SDL_MOUSEBUTTONUP:
     	{
-			mouse_input_up(event);
 			// TODO: check if is_active is CHANGED (to false or true)
 			// TODO: Implement is_active switching in mouse and key up
+			// mouse_input_up(event);
 
     		// continue and return active_menu_option if is_active is still true
 			// active_menu_option = -1 if nothing active
 			if (active_menu_option == -1)
 				return "";
 
-			int res = active_menu_option;		// to store the actual menu option
+			int res = active_menu_option;
 			active_menu_option = -1;
 			return menu_options[res];
         }
