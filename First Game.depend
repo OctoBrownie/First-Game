@@ -82,3 +82,80 @@
 1571375288 c:\users\crystal\everything\my_programs\first game\include\level_select.h
 	"Menu.h"
 
+1571528908 source:c:\users\crystal\everything\my_programs\[c++] first game\src\game_state.cpp
+	<SDL2/SDL.h>
+	<iostream>
+	<string>
+	<vector>
+	"Game_State.h"
+	"Menu.h"
+	"Puzzle.h"
+	"Level_Select.h"
+	"cleanup.h"
+
+1571529031 c:\users\crystal\everything\my_programs\[c++] first game\include\game_state.h
+	<SDL2/SDL.h>
+	<string>
+	"Puzzle.h"
+	"Menu.h"
+
+1579830128 c:\users\crystal\everything\my_programs\[c++] first game\include\puzzle.h
+	<string>
+
+1570403058 c:\users\crystal\everything\my_programs\[c++] first game\include\menu.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<string>
+	<vector>
+	"cleanup.h"
+
+1567467245 c:\users\crystal\everything\my_programs\[c++] first game\include\cleanup.h
+	<utility>
+	<SDL2/SDL.h>
+
+1571371688 c:\users\crystal\everything\my_programs\[c++] first game\include\level_select.h
+	"Menu.h"
+
+1567452828 source:c:\users\crystal\everything\my_programs\[c++] first game\src\general_sdl_funcs.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	"general_SDL_funcs.h"
+
+1567452717 c:\users\crystal\everything\my_programs\[c++] first game\include\general_sdl_funcs.h
+	<string>
+	<iostream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+
+1567469057 source:c:\users\crystal\everything\my_programs\[c++] first game\src\main.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<iostream>
+	<cstdlib>
+	<string>
+	"cleanup.h"
+	"general_SDL_funcs.h"
+	"Game_State.h"
+
+1571529128 source:c:\users\crystal\everything\my_programs\[c++] first game\src\menu.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<vector>
+	"general_SDL_funcs.h"
+	"Menu.h"
+	"cleanup.h"
+
+1571372542 source:c:\users\crystal\everything\my_programs\[c++] first game\src\puzzle.cpp
+	<SDL2/SDL.h>
+	"Puzzle.h"
+
+1579826006 source:c:\users\crystal\everything\my_programs\[c++] first game\src\level_select.cpp
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	"general_SDL_funcs.h"
+	"Level_Select.h"
+
